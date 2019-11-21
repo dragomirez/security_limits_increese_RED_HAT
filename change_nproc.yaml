@@ -1,0 +1,12 @@
+- name: Change User Max Processes
+  hosts: '{{nodes}}'
+  become: true
+  tasks:
+    # Add or modify nofile soft limit for all users
+  - pam_limits:
+      backup: yes
+      dest: /etc/security/limits.d/20-nproc.conf
+      domain: "{{user}}"
+      limit_type: "{{limit_type}}"
+      limit_item:"{{limit_item}}"
+      value: "{{limit}}"

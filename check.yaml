@@ -1,0 +1,17 @@
+- name: Change User Max Processes
+  hosts: '{{nodes}}'
+  become: true
+  tasks:
+    # Add or modify nofile soft limit for all users
+    - name: get results
+      shell: cat /etc/security/limits.d/20-nproc.conf | grep {{user}}
+      register: outlimit
+   
+    - name: display results 
+      debug: 
+        msg: "{{outlimit.stdout}}"
+
+
+
+
+
